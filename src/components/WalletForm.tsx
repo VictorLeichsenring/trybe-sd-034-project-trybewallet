@@ -10,8 +10,7 @@ function WalletForm() {
   const [method, setMethod] = useState('');
   const [tag, setTag] = useState('');
 
-  const currencies = useSelector((state: GlobalState) => state.sigla);
-  // const isFetching = useSelector((state: GlobalState) => state.)
+  const currencies = useSelector((state: GlobalState) => state.sigla.currencies || []);
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
@@ -46,11 +45,15 @@ function WalletForm() {
             value={ currency }
             onChange={ (e) => setCurrency(e.target.value) }
           >
-            {/* {currencies.map((cur) => (
-              <option key={ cur } value={ cur }>
-                {cur}
-              </option>
-            ))} */}
+            {currencies && currencies.length > 0 ? (
+              currencies.map((cur) => (
+                <option key={ cur } value={ cur }>
+                  {cur}
+                </option>
+              ))
+            ) : (
+              <option disabled>Loading...</option>
+            )}
           </select>
         </label>
 

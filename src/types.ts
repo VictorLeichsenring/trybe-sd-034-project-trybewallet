@@ -6,6 +6,7 @@ import { AnyAction } from 'redux';
 export type ActionType = {
   type: string,
   email?:string,
+  payload?: any,
 };
 
 export interface UserState {
@@ -14,11 +15,15 @@ export interface UserState {
 }
 
 export interface SiglaState {
+  isFetching: boolean;
   currencies: string[];
+  errorMessage: string;
   // ... outros campos se necessário
 }
 
 export interface GlobalState {
+  user: UserState;
+  wallet: WalletState;
   sigla: SiglaState;
   // ... outros slices do estado se necessário
 }

@@ -7,7 +7,7 @@ import siglaReducer from './reducers/siglaReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  currencies: siglaReducer,
+  sigla: siglaReducer,
 });
 
 const store = createStore(

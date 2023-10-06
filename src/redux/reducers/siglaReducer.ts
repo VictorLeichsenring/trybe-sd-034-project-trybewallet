@@ -1,13 +1,13 @@
 import { REQUEST_STARTED, REQUEST_SUCCESSFUL, REQUEST_FAILED } from '../actions';
 
 type ActionType = {
-  payload: string,
+  payload: string | Record<string, any>,
   type: string,
 };
 
 const initialState = {
   isFetching: false,
-  sigla: [],
+  currencies: [],
   errorMessage: '',
 };
 
@@ -18,21 +18,22 @@ function siglaReducer(state = initialState, action: ActionType) {
         ...state,
         isFetching: true,
         errorMessage: '',
-        sigla: '',
+        currencies: [],
       };
     case REQUEST_SUCCESSFUL:
       return {
         ...state,
         isFetching: false,
-        sigla: action.payload,
+        currencies: action.payload,
         errorMessage: '',
       };
+
     case REQUEST_FAILED:
       return {
         ...state,
         isFetching: false,
         errorMessage: action.payload,
-        sigla: '',
+        currencies: [],
       };
     default:
       return state;
