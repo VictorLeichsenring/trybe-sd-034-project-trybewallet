@@ -46,3 +46,25 @@ export function fetchSiglas() {
     }
   };
 }
+
+// actionTypes.ts
+export const FETCH_CURRENCIES_REQUEST = 'FETCH_CURRENCIES_REQUEST';
+export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
+export const FETCH_CURRENCIES_FAILURE = 'FETCH_CURRENCIES_FAILURE';
+
+export const fetchCurrencies = () => {
+  return async (dispatch:Dispatch) => {
+    dispatch({ type: FETCH_CURRENCIES_REQUEST });
+
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const data = await response.json();
+      // Aqui você pode precisar ajustar dependendo da estrutura dos dados da sua API
+      const currencyCodes = Object.keys(data).filter((key) => key !== 'USDT');
+
+      dispatch({ type: FETCH_CURRENCIES_SUCCESS, payload: currencyCodes });
+    } catch (error:any) {
+      dispatch({ type: FETCH_CURRENCIES_FAILURE, payload: error.message });
+    }
+  };
+};

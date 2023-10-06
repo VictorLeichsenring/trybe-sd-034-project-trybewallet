@@ -6,7 +6,6 @@ import { AnyAction } from 'redux';
 export type ActionType = {
   type: string,
   email?:string,
-  payload?: any,
 };
 
 export interface UserState {
@@ -15,23 +14,21 @@ export interface UserState {
 }
 
 export interface SiglaState {
-  isFetching: boolean;
   currencies: string[];
-  errorMessage: string;
   // ... outros campos se necessário
 }
 
 export interface GlobalState {
   user: UserState;
   wallet: WalletState;
-  sigla: SiglaState;
+  currencies: SiglaState;
   // ... outros slices do estado se necessário
 }
 
-export interface WalletState {
-  total: number;
-  // outras propriedades relacionadas à carteira...
-}
+// export interface WalletState {
+//   total: number;
+//   // outras propriedades relacionadas à carteira...
+// }
 
 export interface RootState {
   user: UserState;
@@ -44,5 +41,16 @@ export type ReduxState = {
   siglas: string[],
   errorMessage: string,
 };
+
+export interface WalletState {
+  currencies: string[];
+  // ... outras propriedades
+}
+
+// export interface GlobalState {
+//   user: UserState;
+//   wallet: WalletState;
+//   // ... outros slices do estado
+// }
 
 export type Dispatch = ThunkDispatch<ReduxState, null, AnyAction>;

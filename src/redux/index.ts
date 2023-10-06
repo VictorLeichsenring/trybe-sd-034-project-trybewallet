@@ -3,11 +3,13 @@ import { legacy_createStore as createStore,
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { userReducer } from './reducers/user';
+import walletReducer from './reducers/walletReducer';
 import siglaReducer from './reducers/siglaReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  sigla: siglaReducer,
+  wallet: walletReducer,
+  currencies: siglaReducer,
 });
 
 const store = createStore(

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchSiglas } from '../redux/actions';
+import { fetchSiglas, fetchCurrencies } from '../redux/actions';
 import { Dispatch, GlobalState } from '../types';
 
 function WalletForm() {
@@ -10,11 +10,14 @@ function WalletForm() {
   const [method, setMethod] = useState('');
   const [tag, setTag] = useState('');
 
-  const currencies = useSelector((state: GlobalState) => state.sigla.currencies || []);
+  const currencies = useSelector((
+    state: GlobalState,
+  ) => state.wallet.currencies || []);
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
     dispatch(fetchSiglas());
+    dispatch(fetchCurrencies());
   }, [dispatch]);
 
   const handleAddExpense = (event: React.FormEvent) => {

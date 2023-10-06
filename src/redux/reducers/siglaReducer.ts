@@ -21,12 +21,13 @@ function siglaReducer(state = initialState, action: ActionType) {
         currencies: [],
       };
     case REQUEST_SUCCESSFUL:
-      return {
-        ...state,
-        isFetching: false,
-        currencies: action.payload,
-        errorMessage: '',
-      };
+      return action.payload;
+      // return {
+      //   ...state,
+      //   isFetching: false,
+      //   currencies: action.payload,
+      //   errorMessage: '',
+      // };
 
     case REQUEST_FAILED:
       return {
