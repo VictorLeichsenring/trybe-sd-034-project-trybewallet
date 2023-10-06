@@ -11,6 +11,10 @@ const store = createStore(
   composeWithDevTools(), // Aplicando o middleware do Redux DevTools
 );
 
+if (process.env.NODE_ENV !== 'production') {
+  window.store = store;
+}
+
 export type RootState = ReturnType<typeof rootReducer>;
 
 export default store;

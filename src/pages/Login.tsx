@@ -1,12 +1,20 @@
 // Login.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setEmail } from '../redux/actions';
 
 function Login() {
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const isValidEmail = (email:string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isValidPassword = (password:string) => password.length >= 6;
+
+  const areInputsValid = () => isValidEmail(inputEmail) && isValidPassword(inputPassword);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,6 +34,8 @@ function Login() {
             type="email"
             name="email"
             id="email"
+            data-testid="email-input"
+            onChange={ (e) => setInputEmail(e.target.value) }
             required
           />
         </label>
@@ -36,10 +46,12 @@ function Login() {
             name="password"
             id="password"
             minLength={ 6 }
+            data-testid="password-input"
+            onChange={ (e) => setInputPassword(e.target.value) }
             required
           />
         </label>
-        <button type="submit">Entrar</button>
+        <button type="submit" disabled={ !areInputsValid() }>Entrar</button>
       </form>
     </>
   );
