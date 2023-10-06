@@ -11,10 +11,10 @@ type ActionType = {
   email?:string,
 };
 
-type StateType = {
-  user: string;
-  wallet:string;
-};
+// type StateType = {
+//   user: string;
+//   wallet:string;
+// };
 
 const INITIAL_STATE = {
   user: '',
