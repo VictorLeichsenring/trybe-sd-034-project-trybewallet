@@ -2,14 +2,15 @@
 // import wallet from './wallet';
 
 import { SET_EMAIL } from '../actions';
+import { ActionType } from '../../types';
 
 // Configure os seus reducers.
 // ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
 
-type ActionType = {
-  type: string,
-  email?:string,
-};
+// type ActionType = {
+//   type: string,
+//   email?:string,
+// };
 
 // type StateType = {
 //   user: string;
