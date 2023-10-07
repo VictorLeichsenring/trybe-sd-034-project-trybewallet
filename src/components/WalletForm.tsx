@@ -15,10 +15,10 @@ function WalletForm() {
   ) => state.wallet.currencies || []);
   const dispatch = useDispatch<Dispatch>();
 
-  const totalExpenses = useSelector(
-    (state: GlobalState) => state.wallet
-      .expenses.reduce((total, expense) => total + parseFloat(expense.value), 0),
-  );
+  // const totalExpenses = useSelector(
+  //   (state: GlobalState) => state.wallet
+  //     .expenses.reduce((total, expense) => total + parseFloat(expense.value), 0),
+  // );
 
   useEffect(() => {
     dispatch(fetchCurrencies());
