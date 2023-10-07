@@ -4,7 +4,21 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 
-describe('Testes do componente Login', () => {
+const initialState = {
+  user: {
+    email: 'victor@teste.com',
+  },
+  wallet: {
+    isFetching: false,
+    currencies: Object.keys(dataApi),
+    expenses: [] as Expense[],
+    errorMessage: '',
+    isEditing: false,
+    editedId: null,
+  },
+};
+
+describe('Testes do componente Wallet', () => {
   beforeEach(() => {
     renderWithRouterAndRedux(<App />);
   });

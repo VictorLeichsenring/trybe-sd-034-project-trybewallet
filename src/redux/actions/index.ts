@@ -84,29 +84,16 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 // Ação para adicionar despesa
 export const addExpense = (expense: Expense) => {
-  function createExpenseFinder(id: number) {
-    return (exp: { id: number; }) => exp.id === id;
-  }
   return async (
-    dispatch: (arg0: {
-      type: string; payload: any; }) => void,
-    getState: () => { (): any; new(): any; wallet: { (): any; new(): any;
-      expenses: {
-        [x: string]: any; (): any; new(): any;
-        length: any; reduce: { (arg0: (total: any, exp: any) => any, arg1: number): any;
-          new(): any; }; }; }; },
+    dispatch: (arg0: { type: string; payload: any; }) => void,
+    getState: () => any, // Adicionando getState aqui
   ) => {
     try {
       const response = await fetch(urlAPI);
       const exchangeRates = await response.json();
 
-      let newId;
-      let existingExpense;
-
-      do {
-        newId = Math.floor(Math.random() * 10000);
-        existingExpense = getState().wallet.expenses.some(createExpenseFinder(newId));
-      } while (existingExpense);
+      // Usando getState para acessar o estado atual e atribuir um ID
+      const newId = getState().wallet.expenses.length;
 
       const newExpense = {
         ...expense,

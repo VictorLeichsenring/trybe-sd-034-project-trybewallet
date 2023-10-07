@@ -10,7 +10,6 @@ export type ActionType = {
 
 export interface UserState {
   email: string;
-  // outras propriedades relacionadas ao usuário...
 }
 
 export interface SiglaState {

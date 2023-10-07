@@ -17,7 +17,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk)), // Aplicando o middleware do Redux DevTools
 );
 
-if (process.env.NODE_ENV !== 'production') {
+if (window.Cypress) {
   window.store = store;
 }
 
