@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../types'; // Importe o tipo do seu estado global
+import { Expense, RootState } from '../types'; // Importe o tipo do seu estado global
 
 function Table() {
   const expenses = useSelector((state: RootState) => state.wallet.expenses);
-  function getCurrencyName(expense) {
+  function getCurrencyName(expense: Expense) {
     // Encontrar a chave que corresponde à moeda da despesa
     const currencyKey = Object.keys(expense.exchangeRates).find(
       (key) => expense.exchangeRates[key].code === expense.currency,
