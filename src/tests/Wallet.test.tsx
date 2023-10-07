@@ -1,12 +1,13 @@
 import { screen, waitFor } from '@testing-library/react';
-import mockData from './helpers/mockData';
 import userEvent from '@testing-library/user-event';
+import mockData from './helpers/mockData';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 
+const emailTeste = 'victor@teste.com';
 const initialState = {
   user: {
-    email: 'victor@teste.com',
+    email: emailTeste,
   },
   wallet: {
     isFetching: false,
@@ -17,6 +18,8 @@ const initialState = {
     editedId: null,
   },
 };
+const emailInputName = 'email-input';
+const passwordInputName = 'password-input';
 
 describe('Testes do componente Wallet', () => {
   beforeEach(() => {
@@ -29,12 +32,12 @@ describe('Testes do componente Wallet', () => {
   });
 
   it('Verifica se existe um input para e-mail', () => {
-    const emailInput = screen.getByTestId('email-input');
+    const emailInput = screen.getByTestId(emailInputName);
     expect(emailInput).toBeInTheDocument();
   });
 
   it('Verifica se existe um input para senha', () => {
-    const passwordInput = screen.getByTestId('password-input');
+    const passwordInput = screen.getByTestId(passwordInputName);
     expect(passwordInput).toBeInTheDocument();
   });
 
@@ -45,20 +48,20 @@ describe('Testes do componente Wallet', () => {
 
   it('Verifica se o botão de "Entrar" está desabilitado quando o e-mail é inválido e a senha tem menos de 6 caracteres', async () => {
     const user = userEvent.setup();
-    const emailInput = screen.getByTestId('email-input');
-    const passwordInput = screen.getByTestId('password-input');
+    const emailInput = screen.getByTestId(emailInputName);
+    const passwordInput = screen.getByTestId(passwordInputName);
     const submitButton = screen.getByRole('button');
     expect(submitButton).toBeDisabled();
 
-    await user.type(emailInput, 'victor@teste.com');
+    await user.type(emailInput, emailTeste);
     await user.type(passwordInput, 'Victor');
     expect(submitButton).toBeEnabled();
   });
 
   it('Verifica se a pagina é redirecionada', async () => {
     const user = userEvent.setup();
-    const emailInput = screen.getByTestId('email-input');
-    const passwordInput = screen.getByTestId('password-input');
+    const emailInput = screen.getByTestId(emailInputName);
+    const passwordInput = screen.getByTestId(passwordInputName);
     const submitButton = screen.getByRole('button');
     await user.type(emailInput, 'victor@teste.com');
     await user.type(passwordInput, 'Victor');

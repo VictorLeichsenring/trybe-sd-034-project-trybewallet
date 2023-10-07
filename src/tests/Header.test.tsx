@@ -7,6 +7,7 @@ import '@testing-library/jest-dom';
 
 import Header from '../components/Header'; // Atualize com o caminho correto
 import { rootReducer } from '../redux'; // Atualize com o caminho correto
+import { JSX } from 'react/jsx-runtime';
 
 // Mock de um estado inicial
 const initialState = {
@@ -39,8 +40,8 @@ const initialState = {
 
 // Função auxiliar para renderizar o componente com o provider do Redux
 const renderWithRedux = (
-  component,
-  { initialState, store = createStore(rootReducer, initialState) } = {},
+  component: string | number | boolean | JSX.Element | Iterable<React.ReactNode> | null | undefined,
+  { store = createStore(rootReducer, initialState) } = {},
 ) => {
   return {
     ...render(<Provider store={ store }>{component}</Provider>),

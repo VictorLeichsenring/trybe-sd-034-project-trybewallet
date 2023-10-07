@@ -12,6 +12,8 @@ const initialState = {
   },
   // outras slices do estado
 };
+const passwordINputName = 'password-input';
+const emailInputName = 'email-input';
 
 describe('Testes do componente Login', () => {
   beforeEach(() => {
@@ -24,12 +26,12 @@ describe('Testes do componente Login', () => {
   });
 
   it('Verifica se existe um input para e-mail', () => {
-    const emailInput = screen.getByTestId('email-input');
+    const emailInput = screen.getByTestId(emailInputName);
     expect(emailInput).toBeInTheDocument();
   });
 
   it('Verifica se existe um input para senha', () => {
-    const passwordInput = screen.getByTestId('password-input');
+    const passwordInput = screen.getByTestId(passwordINputName);
     expect(passwordInput).toBeInTheDocument();
   });
 
@@ -40,8 +42,8 @@ describe('Testes do componente Login', () => {
 
   it('Verifica se o botão de "Entrar" está desabilitado quando o e-mail é inválido e a senha tem menos de 6 caracteres', async () => {
     const user = userEvent.setup();
-    const emailInput = screen.getByTestId('email-input');
-    const passwordInput = screen.getByTestId('password-input');
+    const emailInput = screen.getByTestId(emailInputName);
+    const passwordInput = screen.getByTestId(passwordINputName);
     const submitButton = screen.getByRole('button');
     expect(submitButton).toBeDisabled();
 
@@ -53,7 +55,7 @@ describe('Testes do componente Login', () => {
   it('Verifica se a pagina é redirecionada', async () => {
     const user = userEvent.setup();
     const emailInput = screen.getByTestId('email-input');
-    const passwordInput = screen.getByTestId('password-input');
+    const passwordInput = screen.getByTestId(passwordINputName);
     const submitButton = screen.getByRole('button');
     await user.type(emailInput, 'victor@teste.com');
     await user.type(passwordInput, 'Victor');
