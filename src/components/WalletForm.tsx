@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchSiglas, fetchCurrencies, addExpense } from '../redux/actions';
+import { fetchCurrencies, addExpense } from '../redux/actions';
 import { Dispatch, GlobalState } from '../types';
 
 function WalletForm() {
@@ -15,11 +15,14 @@ function WalletForm() {
   ) => state.wallet.currencies || []);
   const dispatch = useDispatch<Dispatch>();
 
-  const totalExpenses = useSelector((state: GlobalState) => state.wallet.expenses.reduce((total, expense) => total + parseFloat(expense.value), 0));
+  const totalExpenses = useSelector(
+    (state: GlobalState) => state.wallet
+      .expenses.reduce((total, expense) => total + parseFloat(expense.value), 0),
+  );
 
   useEffect(() => {
     // dispatch(fetchSiglas());
-    console.log("API is being called");
+    console.log('API is being called');
     dispatch(fetchCurrencies());
   }, [dispatch]);
 
@@ -127,11 +130,6 @@ function WalletForm() {
           Adicionar despesa
         </button>
       </form>
-      {/* <p>
-        Total de despesas:
-        {' '}
-        {totalExpenses.toFixed(2)}
-      </p> */}
     </>
 
   );
