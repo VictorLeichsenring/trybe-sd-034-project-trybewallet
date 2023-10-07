@@ -8,10 +8,10 @@ function Table() {
   console.log(expenses);
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    console.log(expenses.length);
-    dispatch(deleteExpense(id));
-    console.log(expenses.length);
+  const handleDelete = (id:any) => {
+    // dispatch(deleteExpense({ id, description }));
+    const del = expenses.filter((element: any) => element.id !== id);
+    dispatch(deleteExpense(del));
   };
 
   function getCurrencyName(expense: Expense) {
@@ -55,7 +55,6 @@ function Table() {
             </td>
             <td>Real</td>
             <td>
-              <button>Editar</button>
               <button
                 type="button"
                 data-testid="delete-btn"

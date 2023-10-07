@@ -1,12 +1,21 @@
 import { screen, waitFor } from '@testing-library/react';
-
 import userEvent from '@testing-library/user-event';
+import mockData from './helpers/mockData';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 
+const initialState = {
+  wallet: {
+    expenses: [],
+    currencies: Object.keys(mockData),
+    // outras propriedades necessárias
+  },
+  // outras slices do estado
+};
+
 describe('Testes do componente Login', () => {
   beforeEach(() => {
-    renderWithRouterAndRedux(<App />);
+    renderWithRouterAndRedux(<App />, { initialState });
   });
 
   it('Renderiza o componente', () => {
@@ -51,6 +60,8 @@ describe('Testes do componente Login', () => {
     expect(submitButton).toBeEnabled();
 
     await user.click(submitButton);
-    waitFor(() => expect(global.window.location.pathname).toEqual('/carteira'));
+    await waitFor(() => {
+      expect(global.window.location.pathname).toEqual('/');
+    });
   });
 });

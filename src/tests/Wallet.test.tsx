@@ -1,5 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
-
+import mockData from './helpers/mockData';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
@@ -10,8 +10,8 @@ const initialState = {
   },
   wallet: {
     isFetching: false,
-    currencies: Object.keys(dataApi),
-    expenses: [] as Expense[],
+    currencies: Object.keys(mockData), // Usando mockData aqui
+    expenses: [],
     errorMessage: '',
     isEditing: false,
     editedId: null,
@@ -20,7 +20,7 @@ const initialState = {
 
 describe('Testes do componente Wallet', () => {
   beforeEach(() => {
-    renderWithRouterAndRedux(<App />);
+    renderWithRouterAndRedux(<App />, { initialState }); // Passando initialState aqui
   });
 
   it('Renderiza o componente', () => {

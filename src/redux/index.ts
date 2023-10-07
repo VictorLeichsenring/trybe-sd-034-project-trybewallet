@@ -6,7 +6,7 @@ import { userReducer } from './reducers/user';
 import walletReducer from './reducers/walletReducer';
 import siglaReducer from './reducers/siglaReducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   wallet: walletReducer,
   currencies: siglaReducer,

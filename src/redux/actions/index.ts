@@ -100,7 +100,6 @@ export const addExpense = (expense: Expense) => {
         exchangeRates,
         id: newId,
       };
-      console.log(newExpense);
 
       dispatch({ type: ADD_EXPENSE, payload: newExpense });
     } catch (error) {
@@ -111,7 +110,12 @@ export const addExpense = (expense: Expense) => {
 
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
-export const deleteExpense = (id: any) => ({
+export const deleteExpense = (del:any) => ({
   type: DELETE_EXPENSE,
-  id,
+  payload: del,
 });
+
+// export const deleteExpense = (criteria: { id: number; [key: string]: any }) => ({
+//   type: DELETE_EXPENSE,
+//   criteria,
+// });
