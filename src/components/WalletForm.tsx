@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCurrencies, addExpense } from '../redux/actions';
-import { Dispatch, GlobalState, Expense } from '../types';
+import { Dispatch, GlobalState } from '../types';
 
 function WalletForm() {
   const [value, setValue] = useState('');
@@ -40,13 +40,7 @@ function WalletForm() {
     setValue('');
     setDescription('');
   };
-  let formattedTotal = '0.00'; // valor padrão
 
-  if (typeof totalExpenses === 'number') {
-    formattedTotal = totalExpenses.toFixed(2);
-  } else {
-    console.error('totalExpenses is not a number:', totalExpenses);
-  }
   return (
     <>
       <div>WalletForm</div>
