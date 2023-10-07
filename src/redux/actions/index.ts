@@ -1,5 +1,6 @@
 // Coloque aqui suas actions
 
+import { ThunkAction } from 'redux-thunk/es/types';
 import { Dispatch } from '../../types';
 
 export const SET_EMAIL = 'SET_EMAIL';
@@ -68,3 +69,70 @@ export const fetchCurrencies = () => {
     }
   };
 };
+
+// Defina a forma de uma despesa
+interface Expense {
+  value: number;
+  description: string;
+  currency: string;
+  method: string;
+  tag: string;
+  exchangeRates?: any; // ou um tipo mais específico dependendo da sua API
+  id?: number;
+}
+
+// Defina a forma do estado global
+interface RootState {
+  wallet: {
+    expenses: Expense[];
+    // ... outras propriedades
+  };
+  // ... outros slices do estado
+}
+
+// Defina a forma da ação
+interface AddExpenseAction {
+  type: typeof ADD_EXPENSE;
+  payload: Expense;
+}
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+
+interface Expense {
+  value: number;
+  description: string;
+  currency: string;
+  method: string;
+  tag: string;
+  // ... outros campos que você espera que uma despesa tenha
+}
+
+// Ação para adicionar despesa
+export const addExpense = (expense) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const exchangeRates = await response.json();
+
+      const newExpense = {
+        ...expense,
+        exchangeRates,
+        id: getState().wallet.expenses.length,
+      };
+      
+      console.log('Adding new expense:', newExpense);
+      
+      dispatch({ type: ADD_EXPENSE, payload: newExpense });
+      
+      const newTotal = getState().wallet.expenses.reduce((total, exp) => {
+        const expenseValueInBRL = parseFloat(exp.value) * parseFloat(exp.exchangeRates[exp.currency].ask);
+        return total + expenseValueInBRL;
+      }, 0);
+      
+      console.log('New total:', newTotal);
+    } catch (error) {
+      console.error('Error adding expense:', error);
+    }
+  };
+};
+

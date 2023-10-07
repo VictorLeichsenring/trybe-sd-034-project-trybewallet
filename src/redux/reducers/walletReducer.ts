@@ -1,11 +1,15 @@
-import { FETCH_CURRENCIES_REQUEST,
+import {
+  FETCH_CURRENCIES_REQUEST,
   FETCH_CURRENCIES_SUCCESS,
-  FETCH_CURRENCIES_FAILURE } from '../actions';
+  FETCH_CURRENCIES_FAILURE,
+  ADD_EXPENSE,
+} from '../actions';
 // walletReducer.ts
 const initialState = {
   currencies: [],
   loading: false,
   error: null,
+  expenses: [],
 };
 
 const walletReducer = (state = initialState, action: { type: any; payload: any; }) => {
@@ -16,6 +20,8 @@ const walletReducer = (state = initialState, action: { type: any; payload: any; 
       return { ...state, loading: false, currencies: action.payload };
     case FETCH_CURRENCIES_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    case ADD_EXPENSE:
+      return { ...state, expenses: [...state.expenses, action.payload] };
     default:
       return state;
   }

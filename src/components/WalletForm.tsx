@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchSiglas, fetchCurrencies } from '../redux/actions';
+import { fetchSiglas, fetchCurrencies, addExpense } from '../redux/actions';
 import { Dispatch, GlobalState } from '../types';
 
 function WalletForm() {
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
-  const [currency, setCurrency] = useState('');
-  const [method, setMethod] = useState('');
-  const [tag, setTag] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [method, setMethod] = useState('Dinheiro');
+  const [tag, setTag] = useState('Alimentação');
 
   const currencies = useSelector((
     state: GlobalState,
   ) => state.wallet.currencies || []);
   const dispatch = useDispatch<Dispatch>();
+
+  const totalExpenses = useSelector((state: GlobalState) => state.wallet.expenses.reduce((total, expense) => total + parseFloat(expense.value), 0));
 
   useEffect(() => {
     dispatch(fetchSiglas());
@@ -22,8 +24,25 @@ function WalletForm() {
 
   const handleAddExpense = (event: React.FormEvent) => {
     event.preventDefault();
-    // Lógica para adicionar a despesa
+    const expense = {
+      value: value.toString(),
+      description,
+      currency,
+      method,
+      tag,
+    };
+    dispatch(addExpense(expense));
+    // Limpar os campos de valor e descrição
+    setValue('');
+    setDescription('');
   };
+  let formattedTotal = '0.00'; // valor padrão
+
+  if (typeof totalExpenses === 'number') {
+    formattedTotal = totalExpenses.toFixed(2);
+  } else {
+    console.error('totalExpenses is not a number:', totalExpenses);
+  }
   return (
     <>
       <div>WalletForm</div>
@@ -107,6 +126,11 @@ function WalletForm() {
           Adicionar despesa
         </button>
       </form>
+      {/* <p>
+        Total de despesas:
+        {' '}
+        {totalExpenses.toFixed(2)}
+      </p> */}
     </>
 
   );

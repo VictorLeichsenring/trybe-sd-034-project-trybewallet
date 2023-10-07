@@ -40,11 +40,22 @@ export type ReduxState = {
   isFetching: boolean,
   siglas: string[],
   errorMessage: string,
+  wallet: WalletState;
 };
 
 export interface WalletState {
   currencies: string[];
-  // ... outras propriedades
+  expenses: Expense[];
+}
+
+interface Expense {
+  value: number;
+  description: string;
+  currency: string;
+  method: string;
+  tag: string;
+  exchangeRates?: any; // ou um tipo mais específico dependendo da sua API
+  id?: number;
 }
 
 // export interface GlobalState {
