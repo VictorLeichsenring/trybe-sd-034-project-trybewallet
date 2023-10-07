@@ -101,6 +101,7 @@ export const addExpense = (expense: Expense) => {
         exchangeRates,
         id: getState().wallet.expenses.length,
       };
+      console.log(newExpense);
 
       dispatch({ type: ADD_EXPENSE, payload: newExpense });
     } catch (error) {
