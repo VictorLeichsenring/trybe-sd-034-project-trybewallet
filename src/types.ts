@@ -48,8 +48,8 @@ export interface WalletState {
   expenses: Expense[];
 }
 
-interface Expense {
-  value: number;
+export interface Expense {
+  value: string;
   description: string;
   currency: string;
   method: string;

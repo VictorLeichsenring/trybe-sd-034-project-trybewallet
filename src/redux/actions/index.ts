@@ -70,12 +70,20 @@ export const fetchCurrencies = () => {
   };
 };
 
+interface Expense {
+  value: string;
+  description: string;
+  currency: string;
+  method: string;
+  tag: string;
+  exchangeRates?: any; // Considere criar uma interface para isso também
+  id?: number;
+}
+
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 // Ação para adicionar despesa
-export const addExpense = (expense: {
-  value: string; description:
-  string; currency: string; method: string; tag: string; }) => {
+export const addExpense = (expense: Expense) => {
   return async (
     dispatch: (arg0: {
       type: string; payload: any; }) => void,

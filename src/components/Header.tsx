@@ -11,15 +11,15 @@ function Header() {
   const totalExpenses = expenses.reduce((total, expense) => {
     if (
       expense
-      && expense.value
+      && typeof expense.value === 'string'
       && expense.exchangeRates
       && expense.currency
       && expense.exchangeRates[expense.currency]
       && expense.exchangeRates[expense.currency].ask
     ) {
-      const expenseValueInBRL = parseFloat(expense.value) 
+      const expenseValueInBRL = parseFloat(expense.value)
       * parseFloat(expense.exchangeRates[expense.currency].ask);
-      if (isNaN(expenseValueInBRL)) {
+      if (Number.isNaN(expenseValueInBRL)) {
         console.error('Failed to calculate expenseValueInBRL for expense:', expense);
         return total; // Return the total so far if we can't add the current expense
       }
