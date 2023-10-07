@@ -3,6 +3,7 @@ import {
   FETCH_CURRENCIES_SUCCESS,
   FETCH_CURRENCIES_FAILURE,
   ADD_EXPENSE,
+  DELETE_EXPENSE,
 } from '../actions';
 // walletReducer.ts
 const initialState = {
@@ -22,6 +23,11 @@ const walletReducer = (state = initialState, action: { type: any; payload: any; 
       return { ...state, loading: false, error: action.payload };
     case ADD_EXPENSE:
       return { ...state, expenses: [...state.expenses, action.payload] };
+    case DELETE_EXPENSE:
+      return {
+        ...state,
+        expenses: state.expenses.filter((expense) => expense.id !== action.id),
+      };
     default:
       return state;
   }

@@ -21,8 +21,6 @@ function WalletForm() {
   );
 
   useEffect(() => {
-    // dispatch(fetchSiglas());
-    console.log('API is being called');
     dispatch(fetchCurrencies());
   }, [dispatch]);
 

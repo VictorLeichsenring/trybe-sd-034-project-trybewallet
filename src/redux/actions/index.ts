@@ -88,7 +88,8 @@ export const addExpense = (expense: Expense) => {
     dispatch: (arg0: {
       type: string; payload: any; }) => void,
     getState: () => { (): any; new(): any; wallet: { (): any; new(): any;
-      expenses: { (): any; new(): any;
+      expenses: {
+        [x: string]: any; (): any; new(): any;
         length: any; reduce: { (arg0: (total: any, exp: any) => any, arg1: number): any;
           new(): any; }; }; }; },
   ) => {
@@ -96,10 +97,20 @@ export const addExpense = (expense: Expense) => {
       const response = await fetch(urlAPI);
       const exchangeRates = await response.json();
 
+      let newId = Math.floor(Math.random() * 10000);
+      let existingExpense = getState().wallet.expenses
+        .find((exp: { id: number; }) => exp.id === newId);
+
+      while (existingExpense) {
+        newId = Math.floor(Math.random() * 10000);
+        existingExpense = getState().wallet.expenses
+          .find((exp: { id: number; }) => exp.id === newId);
+      }
+
       const newExpense = {
         ...expense,
         exchangeRates,
-        id: getState().wallet.expenses.length,
+        id: newId,
       };
       console.log(newExpense);
 
@@ -109,3 +120,10 @@ export const addExpense = (expense: Expense) => {
     }
   };
 };
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id: any) => ({
+  type: DELETE_EXPENSE,
+  id,
+});

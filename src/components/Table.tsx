@@ -1,9 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Expense, RootState } from '../types'; // Importe o tipo do seu estado global
+import { deleteExpense } from '../redux/actions';
 
 function Table() {
   const expenses = useSelector((state: RootState) => state.wallet.expenses);
+  console.log(expenses);
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    console.log(expenses.length);
+    dispatch(deleteExpense(id));
+    console.log(expenses.length);
+  };
+
   function getCurrencyName(expense: Expense) {
     // Encontrar a chave que corresponde à moeda da despesa
     const currencyKey = Object.keys(expense.exchangeRates).find(
@@ -45,9 +55,14 @@ function Table() {
             </td>
             <td>Real</td>
             <td>
-              {/* Botões de editar/excluir */}
               <button>Editar</button>
-              <button>Excluir</button>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => handleDelete(expense.id) }
+              >
+                Excluir
+              </button>
             </td>
           </tr>
         ))}
