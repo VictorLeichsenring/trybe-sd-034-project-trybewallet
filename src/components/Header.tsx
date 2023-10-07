@@ -6,7 +6,6 @@ import WalletForm from './WalletForm';
 function Header() {
   const email = useSelector((state: RootState) => state.user.email);
   const expenses = useSelector((state: RootState) => state.wallet.expenses);
-  // console.log(expenses);
 
   const totalExpenses = expenses.reduce((total, expense) => {
     if (
