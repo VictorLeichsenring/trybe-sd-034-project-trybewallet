@@ -18,7 +18,8 @@ function WalletForm() {
   const totalExpenses = useSelector((state: GlobalState) => state.wallet.expenses.reduce((total, expense) => total + parseFloat(expense.value), 0));
 
   useEffect(() => {
-    dispatch(fetchSiglas());
+    // dispatch(fetchSiglas());
+    console.log("API is being called");
     dispatch(fetchCurrencies());
   }, [dispatch]);
 
